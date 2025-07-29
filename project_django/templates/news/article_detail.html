@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="article-detail">
+    <header class="article-header">
+        <h2>{{ object.title }}</h2>
+        <div class="article-meta">
+            <span>By {{ object.author.username }}</span>
+            <span>In {{ object.category.name }}</span>
+            <span>{{ object.created_at|date:"F d, Y" }}</span>
+        </div>
+        {% if object.author == user %}
+        <div class="article-actions">
+            <a href="{% url 'article_update' pk=object.pk %}" class="btn btn-outline">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+        </div>
+        {% endif %}
+    </header>
+    
+    <div class="article-content">
+        {{ object.content|linebreaks }}
+    </div>
+</article>
+{% endblock %}

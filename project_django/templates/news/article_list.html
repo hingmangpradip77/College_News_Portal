@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="category-section">
+    {% if category %}
+        <h2>Articles in: {{ category.name }}</h2>
+    {% else %}
+        <h2>Latest Articles</h2>
+    {% endif %}
+    
+    <div class="category-list">
+        {% for cat in categories %}
+            <div class="category-item">
+                <a href="{% url 'category_article_list' category_slug=cat.slug %}">{{ cat.name }}</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="article-list">
+    {% for article in articles %}
+        <article class="article-card">
+            <div class="article-content">
+                <h3 class="article-title">
+                    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                </h3>
+                <div class="article-meta">
+                    <span>By {{ article.author.username }}</span>
+                    <span>{{ article.created_at|date:"F d, Y" }}</span>
+                </div>
+                <p class="article-excerpt">{{ article.content|truncatewords:30 }}</p>
+                <a href="{{ article.get_absolute_url }}" class="btn btn-text">Read more →</a>
+            </div>
+        </article>
+    {% empty %}
+        <div class="empty-state">
+            <p>No articles found in this category.</p>
+            <a href="{% url 'article_list' %}" class="btn btn-primary">View all articles</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

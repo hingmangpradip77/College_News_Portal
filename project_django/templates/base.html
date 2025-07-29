@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College News</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="site-title"><a href="{% url 'article_list' %}">College News Portal</a></h1>
+                <nav class="main-nav">
+                    {% if user.is_authenticated %}
+                    <div class="user-greeting">
+                        <span class="user-info">Hi <strong>{{ user.username }}</strong> ({{ user.get_role_display }})</span>
+                        <div class="user-actions">
+                            {% if user.role == 'teacher' %}
+                            <a href="{% url 'article_create' %}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> New Article
+                            </a>
+                            {% endif %}
+                            <form class="logout-form" action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-text">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="auth-links">
+                        <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
+                        <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+                    </div>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {% now "Y" %} College News Portal. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
