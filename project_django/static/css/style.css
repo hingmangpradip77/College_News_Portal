@@ -1,302 +1,350 @@
-/* Modern College News Portal CSS */
+/* static/css/style.css */
+
+/* --- 1. Variables & Global Styles --- */
 :root {
-  --primary: #2563eb;      /* Vibrant blue */
-  --primary-dark: #1e40af;
-  --secondary: #f3f4f6;    /* Light gray */
-  --accent: #f59e0b;       /* Amber */
-  --text: #1f2937;         /* Dark gray */
-  --text-light: #6b7280;
-  --white: #ffffff;
-  --border: #e5e7eb;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-  --radius: 0.5rem;
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --primary-color: #2c3e50;
+    --primary-light: #3d566e;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --text-color: #333;
+    --text-light: #7f8c8d;
+    --border-radius: 6px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.5;
-  color: var(--text);
-  background-color: var(--white);
-  margin: 0;
-  padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* Typography */
-h1, h2, h3, h4 {
-  font-weight: 600;
-  line-height: 1.25;
-  margin-bottom: 1.25rem;
-}
-
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; color: var(--primary); }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-
-/* Header */
-.site-header {
-  background: var(--white);
-  box-shadow: var(--shadow-sm);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  padding: 1rem 0;
-}
-
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.site-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.site-title a:hover {
-  text-decoration: none;
-  opacity: 0.9;
-}
-
-/* Navigation */
-.user-nav {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.user-greeting {
-  font-size: 0.95rem;
-  color: var(--text-light);
-}
-
-.user-actions {
-  display: flex;
-  gap: 1rem;
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.625rem 1.25rem;
-  border-radius: var(--radius);
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
-  gap: 0.5rem;
-  border: none;
-}
-
-.btn-primary {
-  background: var(--primary);
-  color: var(--white);
-}
-
-.btn-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-}
-
-.btn-outline:hover {
-  background: var(--primary);
-  color: var(--white);
-}
-
-/* Articles Grid */
-.article-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.article-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
-
-.article-card:hover {
-  transform: translateY(-0.25rem);
-  box-shadow: var(--shadow-md);
-}
-
-.article-content {
-  padding: 1.5rem;
-}
-
-.article-meta {
-  display: flex;
-  gap: 1rem;
-  color: var(--text-light);
-  font-size: 0.875rem;
-  margin-bottom: 0.75rem;
-}
-
-/* Forms */
-.auth-container {
-  display: grid;
-  place-items: center;
-  min-height: 80vh;
-  padding: 2rem;
-}
-
-.auth-card {
-  width: 100%;
-  max-width: 28rem;
-  background: var(--white);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  padding: 2.5rem;
-}
-
-.auth-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.auth-header h2 {
-  margin-bottom: 0.5rem;
-}
-
-.auth-form .form-group {
-  margin-bottom: 1.5rem;
-}
-
-.auth-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 1rem;
-}
-
-.form-footer {
-  margin-top: 2rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .user-nav {
-    flex-direction: column;
-    gap: 1rem;
     width: 100%;
-  }
-  
-  .user-actions {
-    width: 100%;
-  }
-  
-  .btn {
-    width: 100%;
-  }
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* Add these to your existing CSS */
-.category-filter {
-    margin: 2rem 0;
-}
-
-.category-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-.category-tag {
-    padding: 0.5rem 1rem;
-    background: var(--secondary);
-    border-radius: var(--radius);
-    font-size: 0.875rem;
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
     transition: var(--transition);
 }
 
-.category-tag:hover, .category-tag.active {
-    background: var(--primary);
-    color: var(--white);
+a:hover {
+    color: var(--primary-color);
 }
 
-.article-detail {
-    max-width: 800px;
-    margin: 0 auto;
+/* --- 2. Header & Navigation --- */
+.main-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.article-detail header {
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo a {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo a:hover {
+    text-decoration: none;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+}
+
+.welcome-msg {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.auth-links {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- 3. Buttons --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+    color: white;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+/* --- 4. Main Content --- */
+.main-content {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+/* --- 5. Articles --- */
+.article-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.article-title {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.article-meta {
+    display: flex;
+    gap: 15px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.article-meta a {
+    color: var(--secondary-color);
+}
+
+.article-content {
+    line-height: 1.7;
+}
+
+/* --- 6. Category List --- */
+.category-list {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
     margin-bottom: 2rem;
 }
 
-.category-badge {
-    background: var(--primary);
-    color: var(--white);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius);
-    font-size: 0.875rem;
-    font-weight: 500;
+.category-list h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-color);
 }
 
-.empty-state {
-    text-align: center;
-    grid-column: 1 / -1;
+.category-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-item {
+    background: var(--light-color);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.category-item:hover {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.category-item.active {
+    background: var(--secondary-color);
+    color: white;
+}
+
+/* --- 7. Forms --- */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
     padding: 2rem;
 }
 
-.read-more {
-    display: inline-block;
-    margin-top: 1rem;
-    font-weight: 500;
-    color: var(--primary);
-}
-
-.form-help {
-    color: var(--text-light);
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-    display: block;
-}
-
-.form-error {
-    color: #ef4444;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-}
-
-.site-footer {
-    background: var(--secondary);
-    padding: 2rem 0;
-    margin-top: 3rem;
+.form-title {
     text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--light-color);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 2rem;
+}
+
+/* --- 8. Messages & Alerts --- */
+.messages {
+    margin-bottom: 1.5rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--success-color);
+    border-left: 4px solid var(--success-color);
+}
+
+.alert-error {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--accent-color);
+    border-left: 4px solid var(--accent-color);
+}
+
+/* --- 9. Footer --- */
+.main-footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* --- 10. Responsive Design --- */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .main-nav {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .user-info, .auth-links {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        gap: 5px;
+    }
 }

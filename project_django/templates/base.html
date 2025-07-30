@@ -1,57 +1,83 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College News Portal</title>
+    <title>{% block title %}College News{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-    <header class="site-header">
+    <header class="main-header">
         <div class="container">
             <div class="header-content">
-                <h1 class="site-title"><a href="{% url 'article_list' %}">College News</a></h1>
-                <nav class="user-nav">
+                <h1 class="logo">
+                    <a href="{% url 'article_list' %}">
+                        <i class="fas fa-newspaper"></i> College News
+                    </a>
+                </h1>
+                <nav class="main-nav">
                     {% if user.is_authenticated %}
-                        <span class="user-greeting">
-                            <i class="fas fa-user-circle"></i> {{ user.username }} ({{ user.get_role_display }})
+                    <div class="user-info">
+                        <span class="welcome-msg">
+                            <i class="fas fa-user"></i> {{ user.username }} 
+                            <span class="user-role">({{ user.get_role_display }})</span>
                         </span>
-                        <div class="user-actions">
-                            {% if user.role == 'teacher' %}
-                                <a href="{% url 'article_create' %}" class="btn btn-outline">
-                                    <i class="fas fa-plus"></i> New Article
-                                </a>
-                            {% endif %}
-                            <form class="logout-form" action="{% url 'logout' %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-outline">
-                                    <i class="fas fa-sign-out-alt"></i> Logout
-                                </button>
-                            </form>
-                        </div>
+                        {% if user.role == 'teacher' %}
+                        <a href="{% url 'article_create' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Article
+                        </a>
+                        {% endif %}
+                        <form class="logout-form" action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </div>
                     {% else %}
-                        <div class="user-actions">
-                            <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
-                            <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
-                        </div>
+                    <div class="auth-links">
+                        <a href="{% url 'login' %}" class="btn btn-outline">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                        <a href="{% url 'signup' %}" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        </a>
+                    </div>
                     {% endif %}
                 </nav>
             </div>
         </div>
     </header>
 
-    <main class="container">
-        {% block content %}
-        {% endblock %}
+    <main class="main-content">
+        <div class="container">
+            {% block messages %}
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endblock %}
+            
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
 
-    <footer class="site-footer">
+    <footer class="main-footer">
         <div class="container">
             <p>&copy; {% now "Y" %} College News Portal. All rights reserved.</p>
         </div>
     </footer>
 </body>
+
 </html>

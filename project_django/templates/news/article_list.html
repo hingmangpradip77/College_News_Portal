@@ -1,42 +1,64 @@
 {% extends 'base.html' %}
 
+{% block title %}Latest Articles | College News{% endblock %}
+
 {% block content %}
-<div class="category-section">
+<div class="content-header">
     {% if category %}
-        <h2>Articles in: {{ category.name }}</h2>
+    <h2><i class="fas fa-folder-open"></i> Articles in: {{ category.name }}</h2>
     {% else %}
-        <h2>Latest Articles</h2>
+    <h2><i class="fas fa-newspaper"></i> Latest Articles</h2>
     {% endif %}
-    
-    <div class="category-list">
-        {% for cat in categories %}
-            <div class="category-item">
-                <a href="{% url 'category_article_list' category_slug=cat.slug %}">{{ cat.name }}</a>
-            </div>
-        {% endfor %}
-    </div>
 </div>
 
-<div class="article-list">
-    {% for article in articles %}
-        <article class="article-card">
-            <div class="article-content">
-                <h3 class="article-title">
-                    <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
-                </h3>
-                <div class="article-meta">
-                    <span>By {{ article.author.username }}</span>
-                    <span>{{ article.created_at|date:"F d, Y" }}</span>
-                </div>
-                <p class="article-excerpt">{{ article.content|truncatewords:30 }}</p>
-                <a href="{{ article.get_absolute_url }}" class="btn btn-text">Read more →</a>
+<div class="content-grid">
+    <aside class="sidebar">
+        <div class="category-list">
+            <h3><i class="fas fa-tags"></i> Categories</h3>
+            <div class="category-items">
+                {% for cat in categories %}
+                <a href="{% url 'category_article_list' category_slug=cat.slug %}" 
+                   class="category-item {% if category.slug == cat.slug %}active{% endif %}">
+                    {{ cat.name }}
+                </a>
+                {% endfor %}
             </div>
-        </article>
-    {% empty %}
-        <div class="empty-state">
-            <p>No articles found in this category.</p>
-            <a href="{% url 'article_list' %}" class="btn btn-primary">View all articles</a>
         </div>
-    {% endfor %}
+    </aside>
+
+    <main class="article-list">
+        {% for article in articles %}
+        <article class="article-card">
+            <div class="article-meta">
+                <span><i class="fas fa-user"></i> {{ article.author.username }}</span>
+                <span><i class="fas fa-calendar-alt"></i> {{ article.created_at|date:"F d, Y" }}</span>
+                <span><i class="fas fa-tag"></i> {{ article.category.name }}</span>
+            </div>
+            
+            <h3 class="article-title">
+                <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+            </h3>
+            
+            <div class="article-excerpt">
+                {{ article.content|truncatewords:30|linebreaks }}
+            </div>
+            
+            <a href="{{ article.get_absolute_url }}" class="read-more">
+                Read more <i class="fas fa-arrow-right"></i>
+            </a>
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-newspaper fa-3x"></i>
+            <h3>No articles found</h3>
+            <p>{% if category %}No articles in this category yet.{% else %}No articles published yet.{% endif %}</p>
+            {% if user.role == 'teacher' %}
+            <a href="{% url 'article_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Create Your First Article
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </main>
 </div>
 {% endblock %}
